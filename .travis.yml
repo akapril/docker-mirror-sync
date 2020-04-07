@@ -6,9 +6,16 @@ branches:
   only:
     - master
 script:
+  # mirror
   - docker pull mcr.microsoft.com/java/jdk:8-zulu-alpine
+  - docker pull mcr.microsoft.com/java/jdk:8u242-zulu-alpine	
 after_success:
-  #登录registry的用户名是您的腾讯云的账号ID，密码是您开通镜像仓库服务时设置的密码
+  #login
   - sudo docker login --username=${username}  --password=${password} registry.cn-qingdao.aliyuncs.com
-  - sudo docker tag mcr.microsoft.com/java/jdk:8-zulu-alpine registry.cn-qingdao.aliyuncs.com/jiahua/jdk:8-zulu-alpine 
+  # mcr.microsoft.com/java/jdk:8-zulu-alpine
+  - sudo docker tag mcr.microsoft.com/java/jdk:8-zulu-alpine registry.cn-qingdao.aliyuncs.com/jiahua/jdk:8-zulu-alpine
+  # mcr.microsoft.com/java/jdk:8u242-zulu-alpine
+  - sudo docker tag mcr.microsoft.com/java/jdk:8u242-zulu-alpine registry.cn-qingdao.aliyuncs.com/jiahua/jdk:8u242-zulu-alpine
+  #push
   - sudo docker push registry.cn-qingdao.aliyuncs.com/jiahua/jdk:8-zulu-alpine
+  - sudo docker push registry.cn-qingdao.aliyuncs.com/jiahua/jdk:8u242-zulu-alpine	
